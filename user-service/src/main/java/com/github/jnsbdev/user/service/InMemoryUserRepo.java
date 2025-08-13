@@ -4,6 +4,7 @@ import com.github.jnsbdev.user.exception.UserAlreadyExistsException;
 import com.github.jnsbdev.user.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
@@ -20,5 +21,7 @@ public class InMemoryUserRepo {
         return toSave;
     }
 
-    // findByUsername
+    public java.util.Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(usersByUsername.get(username));
+    }
 }

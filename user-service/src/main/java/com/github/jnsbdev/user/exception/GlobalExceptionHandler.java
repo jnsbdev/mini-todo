@@ -14,9 +14,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public Map<String, Object> handleUserExists(UserAlreadyExistsException ex) {
         return Map.of(
-                "error", "USER_ALREADY_EXISTS",
+                "error", ex.getMessage(),
                 "username", ex.getUsername()
         );
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Map<String, Object> handleInvalidUserCredentials(InvalidCredentialsException ex) {
+        return Map.of(
+                "error", "INVALID_CREDENTIALS",
+                "message", ex.getMessage()
+        );
+    }
 }
