@@ -7,12 +7,14 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class JwtService {
 
     private final JwtEncoder encoder;
+    private final JwtDecoder decoder;
 
     @Value("${jwt.ttl}")
     private java.time.Duration ttl;
@@ -22,6 +24,8 @@ public class JwtService {
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .subject(subject)
+                .issuer("user-service")
+                .audience(List.of("todo-service"))
                 .issuedAt(now)
                 .expiresAt(now.plus(ttl))
                 .build();
@@ -35,5 +39,13 @@ public class JwtService {
         ).getTokenValue();
     }
 
-
+    public boolean isValid(String token) {
+        if (token == null || token.isBlank()) return false;
+        try {
+            decoder.decode(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
+    }
 }

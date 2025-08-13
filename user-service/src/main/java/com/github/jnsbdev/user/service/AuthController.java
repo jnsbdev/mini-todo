@@ -1,9 +1,6 @@
 package com.github.jnsbdev.user.service;
 
-import com.github.jnsbdev.user.model.LoginRequest;
-import com.github.jnsbdev.user.model.LoginResponse;
-import com.github.jnsbdev.user.model.RegisterRequest;
-import com.github.jnsbdev.user.model.RegisterResponse;
+import com.github.jnsbdev.user.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtService jwtService;
 
     //register
     @PostMapping("/register")
@@ -32,4 +30,9 @@ public class AuthController {
     }
 
     //token
+    @PostMapping("/token")
+    public ValidateResponse validate(@RequestBody ValidateRequest request) {
+        boolean isValid = jwtService.isValid(request.token());
+        return new ValidateResponse(isValid);
+    }
 }
