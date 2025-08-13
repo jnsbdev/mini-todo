@@ -1,5 +1,7 @@
 package com.github.jnsbdev.user.service;
 
+import com.github.jnsbdev.user.model.LoginRequest;
+import com.github.jnsbdev.user.model.LoginResponse;
 import com.github.jnsbdev.user.model.RegisterRequest;
 import com.github.jnsbdev.user.model.RegisterResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,11 @@ public class AuthController {
     }
 
     //login
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return authService.login(request);
+    }
 
     //token
 }
