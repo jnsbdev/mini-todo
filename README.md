@@ -7,18 +7,21 @@
 The images are built in temporary containers and then started
 
 ## Example API calls
+- user service runs on port 8080
+- todo-service runs on port 8081
 
-user service runs on port 8080
+## Postman
+You can import the postman collection in postman folder.
+If you got a JWT token as response you can mark it, right click and save to `token` variable.
+Requests that are require the token will then use it.
 
-todo-service runs on port 8081
-
+## Curl
 ### Register
 ```
 curl -X POST http://localhost:8080/register \
 -H "Content-Type: application/json" \
 -d '{"username":"alice","password":"secret"}'
 ```
-
 ### Login (returns {"token": "..."})
 ```
 curl -X POST http://localhost:8080/login \
@@ -31,7 +34,6 @@ curl -X POST http://localhost:8080/token \
 -H "Content-Type: application/json" \
 -d '{"token":"your-jwt-token"}'
 ```
-
 ### Add todo
 ```
 curl -X POST http://localhost:8081/todos \
@@ -39,7 +41,6 @@ curl -X POST http://localhost:8081/todos \
 -H "Content-Type: application/json" \
 -d '{"text":"Important Task"}'
 ```
-
 ### List todos
 ```
 curl http://localhost:8081/todos 
