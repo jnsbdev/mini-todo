@@ -43,7 +43,7 @@ curl -X POST http://localhost:8081/todos \
 ```
 ### List todos
 ```
-curl http://localhost:8081/todos 
+curl http://localhost:8081/todos \
 -H "Authorization: Bearer <TOKEN>"
 ```
 
