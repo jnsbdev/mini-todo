@@ -1,0 +1,10 @@
+services:
+  user-service:
+    build: ./user-service
+    env_file: .env
+    ports: ["8080:8080"]
+
+  todo-service:
+    build: ./todo-service
+    env_file: .env
+    ports: ["8081:8081"]
