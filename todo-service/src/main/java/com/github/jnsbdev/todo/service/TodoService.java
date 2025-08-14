@@ -6,6 +6,8 @@ import com.github.jnsbdev.todo.model.TodoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -17,4 +19,9 @@ public class TodoService {
         return new TodoResponse(savedTodo.id(), savedTodo.text(), savedTodo.createdAt());
     }
 
+    public List<TodoResponse> findAllByUsername(String username) {
+        return repo.findAllByUser(username).stream()
+                .map(todo -> new TodoResponse(todo.id(), todo.text(), todo.createdAt()))
+                .toList();
+    }
 }
